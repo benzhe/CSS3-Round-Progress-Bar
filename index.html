@@ -1,74 +1,214 @@
 <!DOCTYPE html>
+
 <html>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Css3-round-progress-bar : " />
+<head>
+<title>Demo</title>
+<style type="text/css">
+    body{
+    background-color:#ccc; 
+    padding: 20px;
+}
+.outer {
+    position:relative;
+    display:block;
+    width: 200px;
+    height:200px;
+    background-image:-webkit-linear-gradient(#999,#eee);
+    border-radius:100px;
+    padding:5px;
+    float:left
+}
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Css3-round-progress-bar</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ben304/CSS3-Round-Progress-Bar">View on GitHub</a>
-
-          <h1 id="project_title">Css3-round-progress-bar</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ben304/CSS3-Round-Progress-Bar/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ben304/CSS3-Round-Progress-Bar/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Css3-round-progress-bar maintained by <a href="https://github.com/ben304">ben304</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
+.inner {
+    position: absolute;
+    z-index: 9;
+    display:block;
+    width: 140px;
+    height:140px;
+    background-color: #F0F3F6;
+    border-radius: 70px;
+    margin: 30px;
+    box-shadow: 0px 2px 3px #333;
     
+}
 
-  </body>
+#text {
+    display:block;
+    width: 100%;
+    text-align: center;
+    line-height: 140px;
+    font-family: Helvetica;
+    font-size: 40px;
+    color: #4B4F58;    
+}
+
+.circle {
+    position: absolute;    
+    top: 0;
+    left:0;
+    margin: 5px;
+    z-index: 1;
+    display: block;
+    float: left;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-image: -webkit-radial-gradient(circle, #fff 60px, #BFC8D0 85px, #4B4F58 100px);
+}
+
+.start_mask {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-image: -webkit-linear-gradient(right, transparent 95px, rgba(65,157,34,0.2) 100px, transparent 100px);
+    position: absolute;
+    top:5px;
+    left:105px;
+    z-index: 10;
+    background-size: 100px 30px;
+    background-repeat: no-repeat;
+    opacity:0;
+    
+}    
+.end_mask {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-image: -webkit-linear-gradient(left, transparent 95px, rgba(65, 157, 34, 0.2) 100px);
+    position: relative;
+    z-index: 10;
+    background-size: 100px 30px;
+    background-repeat: no-repeat;
+    -webkit-transform-origin: right bottom;    
+    opacity:0; 
+    -webkit-transition-timing-function: linear;
+}
+
+
+/* for right 左透明，右填充 */
+.mask1 {    
+    position: absolute;
+    top: 0;
+    left:0;
+    margin: 5px;
+    z-index:2;
+    display:block;
+    width:200px;
+    height:200px;
+    -webkit-mask-image: -webkit-linear-gradient(left, transparent 100px, #000 100px); 
+    
+}
+
+/* for left  左填充，右透明*/
+.mask2 {    
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 5px;    
+    z-index:2;
+    display:block;
+    width:200px;
+    height:200px;
+    -webkit-mask-image: -webkit-linear-gradient(left, #000 100px, transparent 100px);     
+}
+
+.prog {
+    display: block;    
+    float: left;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-image: -webkit-radial-gradient(circle, #fff 60px, #64CB39 80px, #21830D 96px); 
+    -webkit-transition-timing-function: linear;
+}
+
+/* 右图像，左裁剪 */
+.mask1 .prog {
+    -webkit-mask-image: -webkit-linear-gradient(left, #000 100px, transparent 100px);
+}
+
+/* 右裁剪 */
+.mask2 .prog {
+    -webkit-mask-image: -webkit-linear-gradient(left, transparent 100px, #000 100px);
+}
+
+
+
+
+  </style>
+<script type="text/javascript">//<![CDATA[ 
+
+var sec = 1;
+
+function progress(num) {
+    var right = document.querySelector('.mask1 .prog'),
+        left = document.querySelector('.mask2 .prog'),
+        startMask = document.getElementsByClassName('start_mask')[0],
+        endMask = document.getElementsByClassName('end_mask')[0],
+        text = document.getElementById('text');
+        ang = 360 * ( num / 100 );
+    console.log(ang, ang - 180);
+    startMask.style.cssText = "opacity:1";
+    var i = 0,
+        m = setInterval(function(){if(i >= num) clearInterval(m);text.textContent = (i++)+'%';}, 10);
+    if(num > 0 && num <= 50){
+        right.style.cssText = "-webkit-transition-duration:"+sec+"s; -webkit-transform:rotate(" + ang + "deg)";
+    }
+    else if(num > 50 && num <= 100) {
+        var rightTime = 50 * sec / num,
+            leftTime = (num-50)* sec/num;
+        right.style.cssText = "-webkit-transition-duration:"+rightTime+"s; -webkit-transform:rotate(180deg)";
+        left.style.cssText = "-webkit-transition-delay:"+rightTime+"s; -webkit-transition-duration:"+leftTime+"s; -webkit-transform:rotate(" + (ang-180) + "deg)";   
+    
+    }
+    endMask.style.cssText = "-webkit-transition-duration:"+sec+"s; opacity:1; -webkit-transform:rotate(" + ang + "deg)";    
+}
+
+function reset(){
+    var right = document.querySelector('.mask1 .prog'),
+        left = document.querySelector('.mask2 .prog'),
+        startMask = document.getElementsByClassName('start_mask')[0],
+        endMask = document.getElementsByClassName('end_mask')[0];
+    right.style.cssText = left.style.cssText = startMask.style.cssText = endMask.style.cssText = "";
+}
+
+//]]>  
+
+</script>
+</head>
+
+<body>
+  <!-- 只有 Chrome / Safari 等 Webkit 核心的浏览器才能运行
+    http://dribbble.com/shots/629733-App-UI-elements
+-->
+<span class="outer" onclick="progress(80)">
+    <span class="inner">
+        <span id="text">80%</span>
+    </span>
+    <span class="end_mask" style="-webkit-transition: 1s; opacity: 1; -webkit-transform: rotate(288deg); "></span>
+    <span class="start_mask" style="opacity: 1; "></span>
+    <span class="mask1">
+        <span class="prog" style="-webkit-transition: 0.625s; -webkit-transform: rotate(180deg); "></span>
+    </span>
+    <span class="mask2">
+        <span class="prog" style="-webkit-transition: 0.375s 0.625s; -webkit-transform: rotate(108deg); "></span>        
+    </span>
+    <span class="circle">
+    </span>
+
+</span>
+
+<p style="clear:both"><button onclick="reset()">Reset</button></p>
+
+  
+
+
+
+
+
+</body>>
+
 </html>
+
+
