@@ -1,1 +1,1 @@
-Demo: http://ben304.github.com/CSS3-Round-Progress-Bar/Only works on new Webkit.
+Demo: http://ben304.github.com/CSS3-Round-Progress-Bar/Only works on new webkit broswers. First run might be laggardly due to low broswer memory.
