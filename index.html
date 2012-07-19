@@ -16,8 +16,7 @@
     height:200px;
     background-image:-webkit-linear-gradient(#999,#eee);
     border-radius:100px;
-    padding:5px;
-    float:left
+    padding:5px
 }
 
 .inner {
@@ -142,6 +141,8 @@
 var sec = 1;
 
 function progress(num) {
+    if(typeof num == "undefined") {var num = document.getElementsByName("prog")[0].value;}
+    sec = document.getElementsByName("speed")[0].value / 100;
     var right = document.querySelector('.mask1 .prog'),
         left = document.querySelector('.mask2 .prog'),
         startMask = document.getElementsByClassName('start_mask')[0],
@@ -151,7 +152,7 @@ function progress(num) {
     console.log(ang, ang - 180);
     startMask.style.cssText = "opacity:1";
     var i = 0,
-        m = setInterval(function(){if(i >= num) clearInterval(m);text.textContent = (i++)+'%';}, 10);
+        m = setInterval(function(){if(i >= num) clearInterval(m);text.textContent = (i++)+'%';}, sec*1000/num);
     if(num > 0 && num <= 50){
         right.style.cssText = "-webkit-transition-duration:"+sec+"s; -webkit-transform:rotate(" + ang + "deg)";
     }
@@ -185,22 +186,26 @@ function reset(){
 -->
 <span class="outer" onclick="progress(80)">
     <span class="inner">
-        <span id="text">80%</span>
+        <span id="text">0%</span>
     </span>
-    <span class="end_mask" style="-webkit-transition: 1s; opacity: 1; -webkit-transform: rotate(288deg); "></span>
-    <span class="start_mask" style="opacity: 1; "></span>
+    <span class="end_mask" style=""></span>
+    <span class="start_mask" style=""></span>
     <span class="mask1">
-        <span class="prog" style="-webkit-transition: 0.625s; -webkit-transform: rotate(180deg); "></span>
+        <span class="prog" style=""></span>
     </span>
     <span class="mask2">
-        <span class="prog" style="-webkit-transition: 0.375s 0.625s; -webkit-transform: rotate(108deg); "></span>        
+        <span class="prog" style=""></span>        
     </span>
     <span class="circle">
     </span>
 
 </span>
 
-<p style="clear:both"><button onclick="reset()">Reset</button></p>
+
+<p>Speed: <input name="speed" type="range" min="1" max="100" value="80"><br>
+Progress: <input name="prog" type="range" min="1" max="100" value="80">
+</p>
+<p style="clear:both"><button onclick="reset()">Reset</button>&nbsp;&nbsp;<button onclick="progress()">Run</button></p>
 
   
 
